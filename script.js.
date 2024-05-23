@@ -1,0 +1,35 @@
+function generateBingoCard() {
+    const bingoCard = document.getElementById('bingo-card');
+    bingoCard.innerHTML = '';
+
+    const columns = [
+        {letter: 'B', range: [1, 15]},
+        {letter: 'I', range: [16, 30]},
+        {letter: 'N', range: [31, 45]},
+        {letter: 'G', range: [46, 60]},
+        {letter: 'O', range: [61, 75]}
+    ];
+
+    columns.forEach((col, colIndex) => {
+        const columnNumbers = [];
+        while (columnNumbers.length < 5) {
+            const num = Math.floor(Math.random() * (col.range[1] - col.range[0] + 1)) + col.range[0];
+            if (!columnNumbers.includes(num)) {
+                columnNumbers.push(num);
+            }
+        }
+
+        columnNumbers.forEach((num, rowIndex) => {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            if (colIndex === 2 && rowIndex === 2) {
+                cell.innerText = 'FREE';
+            } else {
+                cell.innerText = num;
+            }
+            bingoCard.appendChild(cell);
+        });
+    });
+}
+
+window.onload = generateBingoCard;
